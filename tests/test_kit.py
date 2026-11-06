@@ -15,6 +15,12 @@ import generate as G  # noqa: E402
 PERSONAS = sorted(f for f in os.listdir(os.path.join(KIT, "personas")) if f.endswith(".json"))
 FORBIDDEN = ["discord.com/api", "Bearer ", "C:\\Users"]  # generic leak markers; personal names live in the builder's private denylist (env KIT_DENYLIST), never in the kit
 KEY_LIKE = re.compile(r"\bsk-[A-Za-z0-9_-]{16,}|\b[A-Za-z0-9]{32,}\b")
+KNOWN_PUBLIC_CONSTANTS = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"}  # the RFC 4648 base32 alphabet (politemall_totp.py): a public standard, never a secret
+
+
+def _key_like_hits(text):
+    """Every KEY_LIKE match in `text` that is not a known-safe public constant (checks each match, not just the first)."""
+    return [m.group(0) for m in KEY_LIKE.finditer(text) if m.group(0) not in KNOWN_PUBLIC_CONSTANTS]
 EXPECTED = ["CLAUDE.md", "vault/VAULT-INDEX.md", "vault/Active Priorities.md", "vault/Interview Log.md", "vault/01 - Daily Notes/Daily Note Template.md", "vault/03 - Personal/About Me.md",
             "vault/05 - Resources/Lessons Pack.md", "vault/05 - Resources/How This Assistant Works.md"]
 
@@ -64,8 +70,8 @@ def test_nothing_from_the_makers_pc_is_in_the_kit():
         for bad in FORBIDDEN:
             if bad in text:
                 hits.append((os.path.relpath(path, KIT), bad))
-        if KEY_LIKE.search(text):
-            hits.append((os.path.relpath(path, KIT), "key-like string"))
+        for bad_key in _key_like_hits(text):
+            hits.append((os.path.relpath(path, KIT), "key-like string: " + bad_key))
     assert hits == []
 
 

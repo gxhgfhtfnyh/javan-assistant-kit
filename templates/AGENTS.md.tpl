@@ -59,7 +59,7 @@ time, before the risky action -- not after. Before any external send (a message,
 another person or service would receive), check it yourself the same way the hook would:
 
 ```
-echo '{"tool_name": "Bash", "tool_input": {"command": "<the exact command you are about to run>"}}' | {{python_plain}} scripts/send_gate.py
+echo '{"tool_name": "Bash", "tool_input": {"command": "<the exact command you are about to run>"} }' | {{python_plain}} scripts/send_gate.py
 ```
 
 Exit code 0 with no output means it would have been allowed. Any printed JSON with `"permissionDecision": "deny"`

@@ -21,7 +21,7 @@ LOGS = Path(os.environ.get("HARNESS_LOGS") or os.path.join(os.path.dirname(HERE)
 CONFIG_PATH = LOGS / "politemall_config.json"
 
 DEFAULTS = {
-    "username": None,                 # e.g. "12345678@myrp.edu.sg" -- required, no sane default
+    "username": None,                 # e.g. "yourstudentid@example.com" -- required, no sane default
     "home_url": "https://rplms.polite.edu.sg/d2l/home",
     "profile_dir": None,               # None -> resolve_profile_dir() derives it from the OS user
     "vault_school_root": None,         # None -> no vault sync step (digest/notify still work)

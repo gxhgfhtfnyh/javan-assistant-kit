@@ -7,7 +7,7 @@ Run this yourself once:
     python politemall_setup.py
 
 What it asks for and where it goes:
-  - Your school email (e.g. 12345678@myrp.edu.sg)        -> logs/politemall_config.json (plain text, not a secret)
+  - Your school email (e.g. yourstudentid@example.com)   -> logs/politemall_config.json (plain text, not a secret)
   - Your PoliteMall password                              -> Windows Credential Manager only, never written to a file
   - Your authenticator app's secret key (for 2FA)         -> Windows Credential Manager only, via politemall_totp.py setup
   - Where to save downloaded course files in your vault   -> logs/politemall_config.json (a path only, e.g. "D:\\MyVault\\School")
