@@ -67,6 +67,17 @@ Things a real setup used that you may or may not want. None is wired in by defau
 - **Safety and quiet time:** an emergency kill switch, a network baseline tripwire, game mode with a hook and an automatic switch.
 The scripts have tests that use fakes; the Discord, mail and calendar tools were never run against a real service in this kit, so try each with a harmless first use.
 
+## PoliteMall / school automation (this repo only)
+This copy of the kit includes extra scripts for Republic Polytechnic's PoliteMall portal (D2L Brightspace), not part of the public starter kit -- it's here because this install is for someone at the same school. It can, on its own:
+- Sign itself back in when the session expires (`login_politemall.py`), including the authenticator-app 2FA step, using a code generated from a secret key you store yourself.
+- Download every new or changed file from your current courses into a plain folder (or your Obsidian vault, if you point it at one) and write a short search-friendly text copy of each PDF/PowerPoint/Word file.
+- Track assignment due dates and unfinished quizzes, and send a reminder before something is due.
+- Reorganize loose, already-existing course notes in an old vault into a tidy school folder, if you want that -- it only moves files it recognizes by module code, always shows you the exact list first, and never overwrites anything already there.
+
+Run `python core/scripts/politemall_setup.py` once to get started: it asks for your school email, where to save files, and walks you through storing your password and 2FA secret key in Windows Credential Manager (never in a file, never sent anywhere). Nothing runs on its own until you've done this.
+
+This assumes the SAME polytechnic and the SAME PoliteMall/D2L portal this was built against -- a different school's LMS, or a different polytechnic's PoliteMall configuration, would need different scripts. The org-unit IDs in `politemall_poll.py`'s optional announcement-polling feature are per-enrollment, not shared between students even in the same module, so that one file starts empty and you fill in your own course IDs from your homepage if you want it.
+
 ## Not included, on purpose
 - **Free helper models (OmniRoute and similar).** You set those up yourself; the vault note `Free Helper Models (optional)` explains what they are, the rules that kept them safe, and what to expect.
 - **A chat channel switched on.** The approval gate and the work loop work without one. The Discord channel (daemon, send script with its lint, typing, queue watcher, quiet hours, voice hook), read-only mail and calendar tools, game mode and a few more ship as *optional extras*: the scripts and tests are in `core/scripts`, but no hook is wired and every timed job is disabled until you choose to enable it (see below).
