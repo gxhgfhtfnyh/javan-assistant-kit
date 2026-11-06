@@ -1,0 +1,11 @@
+{
+  "help": "Starter facts for facts_probe.py. Copy this file to facts.json in the assistant folder (python scripts/facts_probe.py --init) and record your own facts there. Each fact has a read-only probe: env, exists, contains, size_between, cmd or task. See the top of scripts/facts_probe.py.",
+  "facts": [
+    {"fact": "The assistant folder has a boot file (CLAUDE.md)", "probe": "exists", "arg": "{root}/CLAUDE.md", "expect": ""},
+    {"fact": "The vault has an index note", "probe": "exists", "arg": "{vault}/VAULT-INDEX.md", "expect": ""},
+    {"fact": "The vault index lists the daily notes folder", "probe": "contains", "arg": "{vault}/VAULT-INDEX.md", "expect": "Daily Notes"},
+    {"fact": "The logs folder exists", "probe": "exists", "arg": "{logs}", "expect": ""},
+    {"fact": "The PATH environment variable is set", "probe": "env", "arg": "PATH", "expect": ""},
+    {"fact": "A Python 3 interpreter runs the scripts", "probe": "cmd", "arg": "python --version", "expect": "Python 3"}
+  ]
+}

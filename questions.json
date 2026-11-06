@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "intro": "Hi! I'm going to ask about 15 short questions in four rounds so I can set up your own assistant. Every question has a suggested answer: just say 'ok' to take it, or tell me what you want instead. You can skip any question. At the end I show you everything I'm about to create and wait for your yes.",
+  "rounds": [
+    {
+      "id": "you",
+      "title": "Round 1 of 4: you",
+      "questions": [
+        {"id": "name", "text": "What should I call you?", "required": true},
+        {"id": "about", "text": "In a sentence or two: who are you and what do you do (student, job, projects)?", "default": "not told yet"},
+        {"id": "goals", "text": "What do you most want an assistant to help with over the next month?", "default": "keeping track of deadlines and notes"}
+      ]
+    },
+    {
+      "id": "setup",
+      "title": "Round 2 of 4: your setup",
+      "questions": [
+        {"id": "os", "text": "Which computer do you use?", "default": "Windows", "choices": ["Windows", "macOS", "Linux"]},
+        {"id": "tools", "text": "Which of these do you already use? (Obsidian, Discord, Google Calendar, Gmail, a school portal, none)", "default": "none yet"},
+        {"id": "vault_path", "text": "Where should your assistant's folder go? (a folder path; it will hold the boot file and a vault folder of notes, which is the assistant's memory)", "default": "my-assistant"}
+      ]
+    },
+    {
+      "id": "behaviour",
+      "title": "Round 3 of 4: how it should behave",
+      "questions": [
+        {"id": "assistant_name", "text": "What should the assistant be called?", "default": "Jarvis"},
+        {"id": "voice", "text": "How should it talk to you?", "default": "friend", "choices": ["friend", "professional", "direct"]},
+        {"id": "alone", "text": "What may it do on its own, without asking?", "default": "read and write notes in the vault, run scripts in the project folder, run tests, search the web for information"},
+        {"id": "ask_first", "text": "What must it ask you about first?", "default": "anything that sends a message, email or post to another person; anything that costs money; deleting files; changing system settings"},
+        {"id": "never", "text": "What must it never do?", "default": "touch payments or banking, share passwords or keys, lend or use the user's accounts when they are not present"}
+      ]
+    },
+    {
+      "id": "watch",
+      "title": "Round 4 of 4: what to watch, and limits",
+      "questions": [
+        {"id": "watch", "text": "What should it keep an eye on? (deadlines, a school portal, email, your PC's health, nothing yet)", "default": "deadlines"},
+        {"id": "quiet_hours", "text": "When should it stay quiet (no pings)?", "default": "midnight to 9am"},
+        {"id": "plan", "text": "Which plan do you use for the AI?", "default": "unsure", "choices": ["claude_pro", "claude_max", "api_credit", "unsure"]},
+        {"id": "messaging", "text": "Do you want a private chat channel (a Discord DM) to talk to it from your phone?", "default": "later", "choices": ["yes", "later"]}
+      ]
+    }
+  ],
+  "derive": {
+    "voice_rules": {
+      "from": "voice",
+      "map": {
+        "friend": "talk like a chill friend: plain casual sentences, short, no bullet lists unless asked for a list, real reactions allowed; competent and direct underneath. Reply to technical work with one casual sentence first, then the substance.",
+        "professional": "talk like a calm professional assistant: clear, polite, complete sentences, no slang; short paragraphs; lists only when the content is a list.",
+        "direct": "talk in short direct lines: answer first, then the reason in one line; no filler, no small talk unless the user starts it."
+      }
+    },
+    "usage_rules": {
+      "from": "plan",
+      "map": {
+        "claude_pro": "The plan has limits that reset every 5 hours and weekly. Do cheap work first: search before reading, read only the part needed, keep sessions lean, and say plainly when usage looks tight. Send routine writing and code jobs to a free or cheap model when one is set up, and review the result yourself.",
+        "claude_max": "The plan has higher limits that still reset every 5 hours and weekly. Keep sessions lean, avoid idle loops, and say plainly when weekly usage looks tight. Send routine writing and code jobs to a free or cheap model when one is set up, and review the result yourself.",
+        "api_credit": "Every call costs real money. Keep a small spend cap, prefer the cheapest model that does the job, never loop without a stop rule, and report spend when asked.",
+        "unsure": "The plan and its limits are not known yet. Keep sessions lean, avoid idle loops, and ask the user to check their usage page when a long task is planned."
+      }
+    },
+    "messaging_rules": {
+      "from": "messaging",
+      "map": {
+        "yes": "A private Discord DM channel will be set up as an add-on. Until then, answer in the terminal. Every reply to the user goes out deliberately; text typed in the terminal is not sent anywhere else.",
+        "later": "No chat channel yet. Answer in the terminal. When the user wants a private chat channel, walk them through it step by step as an add-on."
+      }
+    }
+  }
+}

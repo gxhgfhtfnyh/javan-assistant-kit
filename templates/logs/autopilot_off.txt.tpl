@@ -1,0 +1,2 @@
+The autopilot is OFF. Delete this file to let {{assistant_name}} keep working through its work list while {{name}} is away.
+Each autopilot run is a headless Claude session that uses your Claude plan (capped at about 2 US dollars per run and at most 8 runs a day). It only starts when a tier 0 or 1 item is waiting and no live session is working. The send gate still holds anything another person would receive.

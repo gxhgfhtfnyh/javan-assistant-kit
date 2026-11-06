@@ -1,0 +1,9 @@
+# the answers a person gives during setup, built folders, caches and logs stay on their own computer
+answers.json
+__pycache__/
+*.pyc
+.pytest_cache/
+/logs/
+/core/logs/
+/core/scripts/logs/
+.claude/settings.local.json

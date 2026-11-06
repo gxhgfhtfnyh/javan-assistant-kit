@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Bash(python generate.py:*)",
+      "Bash(python3 generate.py:*)",
+      "Bash(py -3 generate.py:*)",
+      "Bash(python finish_setup.py:*)",
+      "Bash(python3 finish_setup.py:*)",
+      "Bash(py -3 finish_setup.py:*)",
+      "Bash(python --version)",
+      "Bash(python3 --version)",
+      "Bash(py -3 --version)",
+      "PowerShell(python generate.py:*)",
+      "PowerShell(py -3 generate.py:*)",
+      "PowerShell(python finish_setup.py:*)",
+      "PowerShell(py -3 finish_setup.py:*)",
+      "PowerShell(python --version)",
+      "PowerShell(py -3 --version)"
+    ]
+  }
+}
